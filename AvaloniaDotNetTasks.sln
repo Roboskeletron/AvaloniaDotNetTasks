@@ -8,9 +8,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvaloniaApplication", "AvaloniaApplication\AvaloniaApplication.csproj", "{2CEC4017-3847-4D38-9A8B-0E8ECFB53CDE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogManager.Domain", "LogManager\LogManager.Domain.csproj", "{AF4A4A49-0310-491B-8DC4-AD5D6281C064}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogManager", "LogManager\LogManager.csproj", "{AF4A4A49-0310-491B-8DC4-AD5D6281C064}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogManager.UI", "LogManager.UI\LogManager.UI.csproj", "{2A595320-36A9-43F9-B7FF-08931A7239A2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,14 +18,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{2CEC4017-3847-4D38-9A8B-0E8ECFB53CDE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2CEC4017-3847-4D38-9A8B-0E8ECFB53CDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2CEC4017-3847-4D38-9A8B-0E8ECFB53CDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2CEC4017-3847-4D38-9A8B-0E8ECFB53CDE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{AF4A4A49-0310-491B-8DC4-AD5D6281C064}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{AF4A4A49-0310-491B-8DC4-AD5D6281C064}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AF4A4A49-0310-491B-8DC4-AD5D6281C064}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AF4A4A49-0310-491B-8DC4-AD5D6281C064}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A595320-36A9-43F9-B7FF-08931A7239A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A595320-36A9-43F9-B7FF-08931A7239A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A595320-36A9-43F9-B7FF-08931A7239A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A595320-36A9-43F9-B7FF-08931A7239A2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

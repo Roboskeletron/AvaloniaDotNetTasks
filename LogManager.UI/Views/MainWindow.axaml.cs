@@ -1,6 +1,6 @@
 using Avalonia.Controls;
 
-namespace AvaloniaApplication.Views;
+namespace LogManager.UI.Views;
 public partial class MainWindow : Window
 {
     public MainWindow()

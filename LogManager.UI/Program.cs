@@ -1,7 +1,8 @@
 ﻿using Avalonia;
+using Avalonia.ReactiveUI;
 using System;
 
-namespace AvaloniaApplication;
+namespace LogManager.UI;
 
 internal sealed class Program
 {
@@ -17,5 +18,6 @@ internal sealed class Program
         => AppBuilder.Configure<App>()
             .UsePlatformDetect()
             .WithInterFont()
-            .LogToTrace();
+            .LogToTrace()
+            .UseReactiveUI();
 }

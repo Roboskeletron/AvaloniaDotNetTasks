@@ -1,4 +1,4 @@
-﻿namespace LogManager;
+﻿namespace LogManager.Domain;
 
 public enum LogLevel
 {

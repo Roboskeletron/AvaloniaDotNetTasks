@@ -1,0 +1,48 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:LogManager.UI.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="LogManager.UI.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="LogManager.UI">
+
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+	<TabControl>
+		<TabItem Header="Search by index">
+			<StackPanel>
+				<StackPanel Spacing="10"
+					Orientation="Horizontal">
+					<Slider Minimum="0" Maximum="{Binding LogsCount}" Value="{Binding LogIndex}" Width="50" />
+					<TextBlock Text="{Binding LogIndex}"/>
+				</StackPanel>
+				<Grid ColumnDefinitions="*,*,2*" RowDefinitions="Auto,Auto,Auto" Margin="5">
+					<TextBlock Text="Timestamp" Grid.Row="0" Grid.Column="0"/>
+					<TextBlock Text="Level" Grid.Row="0" Grid.Column="1"/>
+					<TextBlock Text="Message" Grid.Row="0" Grid.Column="2"/>
+					<TextBlock Text="{Binding Timestamp}" Grid.Row="1" Grid.Column="0"/>
+					<TextBlock Text="{Binding Level}" Grid.Row="1" Grid.Column="1"/>
+					<TextBlock Text="{Binding Message}" Grid.Row="1" Grid.Column="2"/>
+				</Grid>
+			</StackPanel>
+		</TabItem>
+		<TabItem Header="Search by level">
+			<StackPanel>
+
+			</StackPanel>
+		</TabItem>
+		<TabItem Header="Serch by date range">
+			<StackPanel>
+
+			</StackPanel>
+		</TabItem>
+	</TabControl>
+
+</Window>
