@@ -35,7 +35,25 @@
 		</TabItem>
 		<TabItem Header="Search by level">
 			<StackPanel>
-
+				<ComboBox SelectedIndex="{Binding LogLevelFilter}" MaxDropDownHeight="100">
+					<ComboBoxItem>Error</ComboBoxItem>
+					<ComboBoxItem>Warning</ComboBoxItem>
+					<ComboBoxItem>Information</ComboBoxItem>
+				</ComboBox>
+				<ListBox ItemsSource="{Binding FilteredByLevel}">
+					<ListBox.ItemTemplate>
+						<DataTemplate>
+							<Grid ColumnDefinitions="*,*,2*" RowDefinitions="Auto,Auto,Auto" Margin="5">
+								<TextBlock Text="Timestamp" Grid.Row="0" Grid.Column="0"/>
+								<TextBlock Text="Level" Grid.Row="0" Grid.Column="1"/>
+								<TextBlock Text="Message" Grid.Row="0" Grid.Column="2"/>
+								<TextBlock Text="{Binding Timestamp}" Grid.Row="1" Grid.Column="0"/>
+								<TextBlock Text="{Binding Level}" Grid.Row="1" Grid.Column="1"/>
+								<TextBlock Text="{Binding Message}" Grid.Row="1" Grid.Column="2"/>
+							</Grid>
+						</DataTemplate>
+					</ListBox.ItemTemplate>
+				</ListBox>
 			</StackPanel>
 		</TabItem>
 		<TabItem Header="Serch by date range">

@@ -1,5 +1,4 @@
-﻿using Avalonia.Logging;
-using LogManager.Domain;
+﻿using LogManager.Domain;
 using ReactiveUI;
 using System;
 using System.Collections.Generic;
@@ -14,17 +13,27 @@ public class MainWindowViewModel : ViewModelBase
     private readonly LogsManager _logManager;
 
     private int _logIndex;
+    private LogLevel _logLevelFilter;
+
     private readonly ObservableAsPropertyHelper<int> _logsCount;
+    private readonly ObservableAsPropertyHelper<string> _timestamp;
+    private readonly ObservableAsPropertyHelper<string> _level;
+    private readonly ObservableAsPropertyHelper<string> _message;
+    private readonly ObservableAsPropertyHelper<IEnumerable<LogMessage>> _filteredByLevel;
 
     public int LogIndex { get => _logIndex; set => this.RaiseAndSetIfChanged(ref _logIndex, value); }
 
-    public string Timestamp => _logManager[LogIndex].Timestamp.ToString();
+    public string Timestamp => _timestamp.Value;
 
-    public string Level => _logManager[LogIndex].Level.ToString();
+    public string Level => _level.Value;
 
-    public string Message => _logManager[LogIndex].Message;
+    public string Message => _message.Value;
 
     public int LogsCount => _logsCount.Value;
+
+    public LogLevel LogLevelFilter { get => _logLevelFilter; set => this.RaiseAndSetIfChanged(ref _logLevelFilter, value); }
+
+    public IEnumerable<LogMessage> FilteredByLevel => _filteredByLevel.Value;
 
     public MainWindowViewModel()
     {
@@ -43,16 +52,23 @@ public class MainWindowViewModel : ViewModelBase
         }.OrderBy(x => x.Timestamp));
 
         this.WhenAnyValue(x => x.LogIndex)
-            .Subscribe(x =>
-            {
-                Logger.Sink!.Log(LogEventLevel.Information, nameof(MainWindowViewModel), this, "Index changed to {Index}", LogIndex);
-                this.RaisePropertyChanged(nameof(Timestamp));
-                this.RaisePropertyChanged(nameof(Level));
-                this.RaisePropertyChanged(nameof(Message));
-            });
+            .Select(x => _logManager[x].Timestamp.ToString())
+            .ToProperty(this, x => x.Timestamp, out _timestamp);
+
+        this.WhenAnyValue(x => x.LogIndex)
+            .Select(x => _logManager[x].Level.ToString())
+            .ToProperty(this, x => x.Level, out _level);
+
+        this.WhenAnyValue(x => x.LogIndex)
+            .Select(x => _logManager[x].Message)
+            .ToProperty(this, x => x.Message, out _message);
 
         this.WhenAnyValue(x => x._logManager.LogsCount)
             .Select(x => x - 1)
             .ToProperty(this, x => x.LogsCount, out _logsCount);
+
+        this.WhenAnyValue(x => x.LogLevelFilter)
+            .Select(x => _logManager.GetByLogLevel(x))
+            .ToProperty(this, x => x.FilteredByLevel, out _filteredByLevel);
     }
 }
