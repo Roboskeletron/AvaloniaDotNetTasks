@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35303.130
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8FBE46C1-EC46-44C8-A15B-6D2981A11593}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvaloniaApplication", "AvaloniaApplication\AvaloniaApplication.csproj", "{2CEC4017-3847-4D38-9A8B-0E8ECFB53CDE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogManager", "LogManager\LogManager.csproj", "{AF4A4A49-0310-491B-8DC4-AD5D6281C064}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2CEC4017-3847-4D38-9A8B-0E8ECFB53CDE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CEC4017-3847-4D38-9A8B-0E8ECFB53CDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CEC4017-3847-4D38-9A8B-0E8ECFB53CDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CEC4017-3847-4D38-9A8B-0E8ECFB53CDE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF4A4A49-0310-491B-8DC4-AD5D6281C064}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF4A4A49-0310-491B-8DC4-AD5D6281C064}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF4A4A49-0310-491B-8DC4-AD5D6281C064}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF4A4A49-0310-491B-8DC4-AD5D6281C064}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8742082B-FD3B-4C19-A096-9BDF36A76E0C}
+	EndGlobalSection
+EndGlobal
