@@ -46,9 +46,9 @@ public class MainWindowViewModel : ViewModelBase
             new(DateTime.Parse("4/11/2024"), LogLevel.Warning, "Another warning log"),
             new(DateTime.Parse("6/11/2024"), LogLevel.Error, "Another error log"),
             new(DateTime.Parse("6/1/2024"), LogLevel.Information, "More information"),
-            new(DateTime.Parse("1/15/2024"), LogLevel.Warning, "Yet another warning"),
-            new(DateTime.Parse("3/16/2024"), LogLevel.Error, "Critical error encountered"),
-            new(DateTime.Parse("2/11/2024"), LogLevel.Information, "Final info log")
+            new(DateTime.Parse("15/1/2024"), LogLevel.Warning, "Yet another warning"),
+            new(DateTime.Parse("16/3/2024"), LogLevel.Error, "Critical error encountered"),
+            new(DateTime.Parse("11/2/2024"), LogLevel.Information, "Final info log")
         }.OrderBy(x => x.Timestamp));
 
         this.WhenAnyValue(x => x.LogIndex)
