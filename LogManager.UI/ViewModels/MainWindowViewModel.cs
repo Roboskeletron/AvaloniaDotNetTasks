@@ -1,4 +1,5 @@
-﻿using LogManager.Domain;
+﻿using Avalonia.Platform.Storage;
+using LogManager.Domain;
 using ReactiveUI;
 using System;
 using System.Collections.Generic;
@@ -47,7 +48,9 @@ public class MainWindowViewModel : ViewModelBase
 
     public string? EndDateString { get => _endDateString; set => this.RaiseAndSetIfChanged(ref _endDateString, value); }
 
-    public MainWindowViewModel()
+    public ReactiveCommand<Unit, Unit> SaveLogsCommand { get; }
+
+    public MainWindowViewModel(IStorageProvider storageProvider)
     {
         _logManager = new LogsManager(new List<LogMessage>
         {
@@ -92,5 +95,27 @@ public class MainWindowViewModel : ViewModelBase
 
             FilteredByTimeRange = _logManager.GetByDateRange(startDate, endDate);
         });
+
+        SaveLogsCommand = ReactiveCommand.CreateFromTask(async () =>
+        {
+            var file = await storageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
+            {
+                FileTypeChoices = [new FilePickerFileType("json") {
+                    MimeTypes = ["application/json"],
+                    Patterns = ["*.json"]
+                }]
+            });
+
+            if (file == null)
+            {
+                return;
+            }
+
+            using var stream = await file.OpenWriteAsync();
+
+            await _logManager.SaveToFileAsync(stream, default);
+        });
+
+        FilteredByTimeRange = _logManager.GetByDateRange(DateTime.MinValue, DateTime.MaxValue);
     }
 }

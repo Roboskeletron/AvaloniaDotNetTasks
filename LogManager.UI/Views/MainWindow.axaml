@@ -22,6 +22,7 @@
 					Orientation="Horizontal">
 					<Slider Minimum="0" Maximum="{Binding LogsCount}" Value="{Binding LogIndex}" Width="50" />
 					<TextBlock Text="{Binding LogIndex}"/>
+          <Button Command="{Binding SaveLogsCommand}">Save all logs</Button>
 				</StackPanel>
 				<Grid ColumnDefinitions="*,*,2*" RowDefinitions="Auto,Auto,Auto" Margin="5">
 					<TextBlock Text="Timestamp" Grid.Row="0" Grid.Column="0"/>
@@ -54,6 +55,7 @@
 						</DataTemplate>
 					</ListBox.ItemTemplate>
 				</ListBox>
+        <Button Command="{Binding SaveLogsCommand}">Save all logs</Button>
 			</StackPanel>
 		</TabItem>
 		<TabItem Header="Search by date range">
@@ -62,6 +64,7 @@
           <MaskedTextBox Mask="00/00/0000 00:00" Text="{Binding StartDateString}"/>
           <MaskedTextBox Mask="00/00/0000 00:00" Text="{Binding EndDateString}"/>
           <Button Command="{Binding SearchByTimeRangeCommand}">Search</Button>
+          <Button Command="{Binding SaveLogsCommand}">Save all logs</Button>
         </StackPanel>
         <ListBox ItemsSource="{Binding FilteredByTimeRange}">
           <ListBox.ItemTemplate>

@@ -30,13 +30,13 @@ public class LogManager
 
     public void LogWarning(string message) => Log(LogLevel.Warning, message);
 
-    public void SaveToFile(FileStream fileStream)
+    public void SaveToFile(Stream fileStream)
     {
         var serializedData = JsonSerializer.Serialize(_logs);
         var rawData = Encoding.UTF8.GetBytes(serializedData);
         fileStream.Write(rawData, 0, rawData.Length);
     }
 
-    public Task SaveToFileAsync(FileStream fileStream, CancellationToken cancellationToken) =>
+    public Task SaveToFileAsync(Stream fileStream, CancellationToken cancellationToken) =>
         JsonSerializer.SerializeAsync(fileStream, _logs, cancellationToken: cancellationToken);
 }
