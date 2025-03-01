@@ -3,6 +3,7 @@ using ReactiveUI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive;
 using System.Reactive.Linq;
 using LogsManager = LogManager.Domain.LogManager;
 
@@ -14,6 +15,9 @@ public class MainWindowViewModel : ViewModelBase
 
     private int _logIndex;
     private LogLevel _logLevelFilter;
+    private string? _startDateString;
+    private string? _endDateString;
+    private IEnumerable<LogMessage> _filteredByTimeRange = [];
 
     private readonly ObservableAsPropertyHelper<int> _logsCount;
     private readonly ObservableAsPropertyHelper<string> _timestamp;
@@ -34,6 +38,14 @@ public class MainWindowViewModel : ViewModelBase
     public LogLevel LogLevelFilter { get => _logLevelFilter; set => this.RaiseAndSetIfChanged(ref _logLevelFilter, value); }
 
     public IEnumerable<LogMessage> FilteredByLevel => _filteredByLevel.Value;
+
+    public IEnumerable<LogMessage> FilteredByTimeRange { get => _filteredByTimeRange; set => this.RaiseAndSetIfChanged(ref _filteredByTimeRange, value); }
+
+    public ReactiveCommand<Unit, Unit> SearchByTimeRangeCommand { get; }
+
+    public string? StartDateString { get => _startDateString; set => this.RaiseAndSetIfChanged(ref _startDateString, value); }
+
+    public string? EndDateString { get => _endDateString; set => this.RaiseAndSetIfChanged(ref _endDateString, value); }
 
     public MainWindowViewModel()
     {
@@ -70,5 +82,15 @@ public class MainWindowViewModel : ViewModelBase
         this.WhenAnyValue(x => x.LogLevelFilter)
             .Select(x => _logManager.GetByLogLevel(x))
             .ToProperty(this, x => x.FilteredByLevel, out _filteredByLevel);
+
+        SearchByTimeRangeCommand = ReactiveCommand.Create(() =>
+        {
+            if (!(DateTime.TryParse(StartDateString, out var startDate) && DateTime.TryParse(EndDateString, out var endDate)))
+            {
+                return;
+            }
+
+            FilteredByTimeRange = _logManager.GetByDateRange(startDate, endDate);
+        });
     }
 }

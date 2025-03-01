@@ -56,9 +56,27 @@
 				</ListBox>
 			</StackPanel>
 		</TabItem>
-		<TabItem Header="Serch by date range">
+		<TabItem Header="Search by date range">
 			<StackPanel>
-
+        <StackPanel Orientation="Horizontal" Spacing="10">
+          <MaskedTextBox Mask="00/00/0000 00:00" Text="{Binding StartDateString}"/>
+          <MaskedTextBox Mask="00/00/0000 00:00" Text="{Binding EndDateString}"/>
+          <Button Command="{Binding SearchByTimeRangeCommand}">Search</Button>
+        </StackPanel>
+        <ListBox ItemsSource="{Binding FilteredByTimeRange}">
+          <ListBox.ItemTemplate>
+            <DataTemplate>
+              <Grid ColumnDefinitions="*,*,2*" RowDefinitions="Auto,Auto,Auto" Margin="5">
+                <TextBlock Text="Timestamp" Grid.Row="0" Grid.Column="0"/>
+                <TextBlock Text="Level" Grid.Row="0" Grid.Column="1"/>
+                <TextBlock Text="Message" Grid.Row="0" Grid.Column="2"/>
+                <TextBlock Text="{Binding Timestamp}" Grid.Row="1" Grid.Column="0"/>
+                <TextBlock Text="{Binding Level}" Grid.Row="1" Grid.Column="1"/>
+                <TextBlock Text="{Binding Message}" Grid.Row="1" Grid.Column="2"/>
+              </Grid>
+            </DataTemplate>
+          </ListBox.ItemTemplate>
+        </ListBox>
 			</StackPanel>
 		</TabItem>
 	</TabControl>
