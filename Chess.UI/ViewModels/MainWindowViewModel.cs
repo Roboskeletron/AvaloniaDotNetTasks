@@ -43,13 +43,54 @@ public class MainWindowViewModel : ViewModelBase
 
     private string? _position;
 
-    public string? Position { get => _position; set => this.RaiseAndSetIfChanged(ref _position, value); }
+    public string? Position { get => $"Piece position: {_position}"; set => this.RaiseAndSetIfChanged(ref _position, value); }
+
+    private string? _pieceColor;
+
+    public string? PieceColor { get => $"Piece color: {_pieceColor}"; set => this.RaiseAndSetIfChanged(ref _pieceColor, value); }
 
     public MainWindowViewModel()
     {
         this.WhenAnyValue(x => x.ChessPieceId)
             .Select(x => _chessPieceDataMap[x])
-            .ToProperty(this, x => x.ChessPieceData, out _chessPieceData);
+            .ToProperty(this, x => x.ChessPieceData, out _chessPieceData); ;
+
+        this.WhenAnyValue(x => x.ChessPieceData)
+            .Subscribe(x =>
+            {
+                Color = x?.Color ?? Domain.PieceColor.White;
+                InitialPosition = x?.InitialPosition;
+                MoveToPosition = x?.MoveToPosition;
+                PieceColor = x?.ChessPiece?.Color.ToString();
+                Position = x?.ChessPiece?.Position.ToNotation();
+            });
+
+        this.WhenAnyValue(x => x.Color)
+            .Subscribe(x =>
+            {
+                if (ChessPieceData != null)
+                {
+                    ChessPieceData.Color = x;
+                }
+            });
+
+        this.WhenAnyValue(x => x.InitialPosition)
+            .Subscribe(x =>
+            {
+                if (ChessPieceData != null)
+                {
+                    ChessPieceData.InitialPosition = x;
+                }
+            });
+
+        this.WhenAnyValue(x => x.MoveToPosition)
+            .Subscribe(x =>
+            {
+                if (ChessPieceData != null)
+                {
+                    ChessPieceData.MoveToPosition = x;
+                }
+            });
 
         PlaceOnBoardCommand = ReactiveCommand.Create(() =>
         {
@@ -73,6 +114,7 @@ public class MainWindowViewModel : ViewModelBase
             };
 
             Position = ChessPieceData.ChessPiece.Position.ToNotation();
+            PieceColor = Color.ToString();
         });
 
         MoveToCommand = ReactiveCommand.Create(() =>
@@ -93,4 +135,14 @@ public class MainWindowViewModel : ViewModelBase
             Position = piece.Position.ToNotation();
         });
     }
+
+    private void SetColor(Domain.PieceColor color)
+    {
+        if (ChessPieceData != null)
+        {
+            ChessPieceData.Color = color;
+        }
+    }
+
+
 }
