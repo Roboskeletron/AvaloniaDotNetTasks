@@ -15,7 +15,7 @@
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 
-  <TabControl>
+  <TabControl SelectedIndex="{Binding ChessPieceId}">
     <TabItem Header="Queen">
       <StackPanel Spacing="10">
         <StackPanel Orientation="Horizontal" Spacing="10">
@@ -26,7 +26,10 @@
           <MaskedTextBox Mask="L0" AsciiOnly="True" Text="{Binding InitialPosition}"/>
           <Button Command="{Binding PlaceOnBoardCommand}">Place on board</Button>
         </StackPanel>
-        <TextBlock Text="{Binding Position}"/>
+        <StackPanel Spacing="10" Orientation="Horizontal">
+          <TextBlock Text="{Binding Position}"/>
+          <TextBlock Text="{Binding PieceColor}"/>
+        </StackPanel>
         <StackPanel Spacing="10" Orientation="Horizontal">
           <MaskedTextBox Mask="L0" AsciiOnly="True" Text="{Binding MoveToPosition}"/>
           <Button Command="{Binding MoveToCommand}">Move</Button>
@@ -34,10 +37,44 @@
       </StackPanel>
     </TabItem>
     <TabItem Header="Rook">
-
+      <StackPanel Spacing="10">
+        <StackPanel Orientation="Horizontal" Spacing="10">
+          <ComboBox SelectedIndex="{Binding Color}">
+            <ComboBoxItem>White</ComboBoxItem>
+            <ComboBoxItem>Black</ComboBoxItem>
+          </ComboBox>
+          <MaskedTextBox Mask="L0" AsciiOnly="True" Text="{Binding InitialPosition}"/>
+          <Button Command="{Binding PlaceOnBoardCommand}">Place on board</Button>
+        </StackPanel>
+        <StackPanel Spacing="10" Orientation="Horizontal">
+          <TextBlock Text="{Binding Position}"/>
+          <TextBlock Text="{Binding PieceColor}"/>
+        </StackPanel>
+        <StackPanel Spacing="10" Orientation="Horizontal">
+          <MaskedTextBox Mask="L0" AsciiOnly="True" Text="{Binding MoveToPosition}"/>
+          <Button Command="{Binding MoveToCommand}">Move</Button>
+        </StackPanel>
+      </StackPanel>
     </TabItem>
     <TabItem Header="Bishop">
-
+      <StackPanel Spacing="10">
+        <StackPanel Orientation="Horizontal" Spacing="10">
+          <ComboBox SelectedIndex="{Binding Color}">
+            <ComboBoxItem>White</ComboBoxItem>
+            <ComboBoxItem>Black</ComboBoxItem>
+          </ComboBox>
+          <MaskedTextBox Mask="L0" AsciiOnly="True" Text="{Binding InitialPosition}"/>
+          <Button Command="{Binding PlaceOnBoardCommand}">Place on board</Button>
+        </StackPanel>
+        <StackPanel Spacing="10" Orientation="Horizontal">
+          <TextBlock Text="{Binding Position}"/>
+          <TextBlock Text="{Binding PieceColor}"/>
+        </StackPanel>
+        <StackPanel Spacing="10" Orientation="Horizontal">
+          <MaskedTextBox Mask="L0" AsciiOnly="True" Text="{Binding MoveToPosition}"/>
+          <Button Command="{Binding MoveToCommand}">Move</Button>
+        </StackPanel>
+      </StackPanel>
     </TabItem>
   </TabControl>
 
