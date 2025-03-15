@@ -8,9 +8,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogManager.Domain", "LogManager\LogManager.Domain.csproj", "{AF4A4A49-0310-491B-8DC4-AD5D6281C064}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogManager.Domain", "LogManager\LogManager.Domain.csproj", "{AF4A4A49-0310-491B-8DC4-AD5D6281C064}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogManager.UI", "LogManager.UI\LogManager.UI.csproj", "{2A595320-36A9-43F9-B7FF-08931A7239A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogManager.UI", "LogManager.UI\LogManager.UI.csproj", "{2A595320-36A9-43F9-B7FF-08931A7239A2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chess.Domain", "Chess.Domain\Chess.Domain.csproj", "{9EC7B0E8-7E55-4742-9332-5CB2A82B590E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chess.UI", "Chess.UI\Chess.UI.csproj", "{D22CE90F-29B7-4CD8-B1FF-54692070B7CE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,6 +30,14 @@ Global
 		{2A595320-36A9-43F9-B7FF-08931A7239A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2A595320-36A9-43F9-B7FF-08931A7239A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2A595320-36A9-43F9-B7FF-08931A7239A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9EC7B0E8-7E55-4742-9332-5CB2A82B590E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9EC7B0E8-7E55-4742-9332-5CB2A82B590E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9EC7B0E8-7E55-4742-9332-5CB2A82B590E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9EC7B0E8-7E55-4742-9332-5CB2A82B590E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D22CE90F-29B7-4CD8-B1FF-54692070B7CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D22CE90F-29B7-4CD8-B1FF-54692070B7CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D22CE90F-29B7-4CD8-B1FF-54692070B7CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D22CE90F-29B7-4CD8-B1FF-54692070B7CE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
