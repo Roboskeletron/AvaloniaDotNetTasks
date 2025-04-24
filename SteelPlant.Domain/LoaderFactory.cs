@@ -2,5 +2,5 @@
 
 public class LoaderFactory
 {
-    ILoader CreateLoader(int materialQuantity, int loadingTimeMs) => new Loader(materialQuantity, loadingTimeMs);
+    public static ILoader CreateLoader(int materialQuantity, int loadingTimeMs) => new Loader(materialQuantity, loadingTimeMs);
 }

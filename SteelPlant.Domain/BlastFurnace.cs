@@ -3,7 +3,8 @@
 public enum FurnaceStatus
 {
     Normal,
-    Overheated
+    Overheated,
+    Empty,
 }
 
 public class FurnaceEventArgs : EventArgs
@@ -40,27 +41,32 @@ public class BlastFurnace
     public void AddMaterial(int quantity)
     {
         _currentMaterial = Math.Min(_currentMaterial + quantity, _maxCapacity);
+        Status = FurnaceStatus.Normal;
     }
 
     public async Task OperateCycleAsync(CancellationToken cancellationToken)
     {
-        if (Status == FurnaceStatus.Overheated)
+        await Task.Delay(_operationDelayMs, cancellationToken);
+
+        if (Status == FurnaceStatus.Overheated || Status == FurnaceStatus.Empty)
         {
             return;
         }
 
-        await Task.Delay(_operationDelayMs, cancellationToken);
         _currentMaterial = Math.Max(_currentMaterial - (_maxCapacity / 20), 0);
 
         if (_currentMaterial == 0)
         {
+            Status = FurnaceStatus.Empty;
             MaterialDepleted?.Invoke(this, new FurnaceEventArgs(this));
+            return;
         }
 
         if (_random.NextDouble() < _overheatProbability)
         {
             Status = FurnaceStatus.Overheated;
             Overheated?.Invoke(this, new FurnaceEventArgs(this));
+            return;
         }
     }
 

@@ -1,0 +1,189 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:SteelPlant.UI.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:conv="clr-namespace:SteelPlant.UI.Converters"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="SteelPlant.UI.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="SteelPlant.UI">
+
+	<Window.DataContext>
+		<vm:MainWindowViewModel />
+	</Window.DataContext>
+
+	<Window.Resources>
+		<conv:InverseBoolConverter x:Key="InvBool" />
+		<conv:FurnaceStatusToBrushConverter x:Key="StatusBrush" />
+	</Window.Resources>
+
+	<Window.Styles>
+		<!-- Печь: пульсация цвета бесконечно -->
+		<Style Selector="Rectangle.furnace">
+			<Setter Property="Fill" Value="OrangeRed" />
+			<Style.Animations>
+				<Animation Duration="0:0:1" IterationCount="Infinite">
+					<KeyFrame Cue="0%">
+						<Setter Property="Fill" Value="OrangeRed" />
+					</KeyFrame>
+					<KeyFrame Cue="50%">
+						<Setter Property="Fill" Value="DarkRed" />
+					</KeyFrame>
+					<KeyFrame Cue="100%">
+						<Setter Property="Fill" Value="OrangeRed" />
+					</KeyFrame>
+				</Animation>
+			</Style.Animations>
+		</Style>
+
+		<!-- Погрузчик: движение вверх-вниз бесконечно -->
+		<Style Selector="Border.loader">
+			<Setter Property="Background" Value="LightBlue" />
+			<Style.Animations>
+				<Animation Duration="0:0:1" IterationCount="Infinite">
+					<KeyFrame Cue="0%">
+						<Setter Property="TranslateTransform.Y" Value="0" />
+					</KeyFrame>
+					<KeyFrame Cue="50%">
+						<Setter Property="TranslateTransform.Y" Value="20" />
+					</KeyFrame>
+					<KeyFrame Cue="100%">
+						<Setter Property="TranslateTransform.Y" Value="0" />
+					</KeyFrame>
+				</Animation>
+			</Style.Animations>
+		</Style>
+
+		<!-- Рабочий: шестерёнка вращается бесконечно -->
+		<Style Selector="Polygon.gear">
+			<Setter Property="Fill" Value="LightGreen" />
+			<Style.Animations>
+				<Animation Duration="0:0:3" IterationCount="Infinite">
+					<KeyFrame Cue="0%">
+						<Setter Property="RotateTransform.Angle" Value="0" />
+					</KeyFrame>
+					<KeyFrame Cue="100%">
+						<Setter Property="RotateTransform.Angle" Value="360" />
+					</KeyFrame>
+				</Animation>
+			</Style.Animations>
+		</Style>
+	</Window.Styles>
+
+	<DockPanel LastChildFill="True">
+		<!-- Панель управления -->
+		<StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="10" Spacing="20">
+			<StackPanel>
+				<TextBlock Text="Добавить печь" FontWeight="Bold" />
+				<TextBox Width="100" Watermark="Max Capacity" Text="{Binding NewFurnace.MaxCapacity}" />
+				<TextBox Width="100" Watermark="Overheat Prob" Text="{Binding NewFurnace.OverheatProbability}" />
+				<TextBox Width="100" Watermark="Delay ms" Text="{Binding NewFurnace.OperationDelayMs}" />
+				<Button Content="Добавить" Command="{Binding AddFurnaceCommand}" />
+			</StackPanel>
+			<StackPanel>
+				<TextBlock Text="Добавить погрузчик" FontWeight="Bold" />
+				<TextBox Width="100" Watermark="Quantity" Text="{Binding NewLoader.Quantity}" />
+				<TextBox Width="100" Watermark="Interval ms" Text="{Binding NewLoader.IntervalMs}" />
+				<Button Content="Добавить" Command="{Binding AddLoaderCommand}" />
+			</StackPanel>
+			<StackPanel>
+				<TextBlock Text="Добавить рабочего" FontWeight="Bold" />
+				<TextBox Width="100" Watermark="Cooling ms" Text="{Binding NewWorker.CoolingTimeMs}" />
+				<Button Content="Добавить" Command="{Binding AddWorkerCommand}" />
+			</StackPanel>
+		</StackPanel>
+
+		<!-- Карусели -->
+		<StackPanel Orientation="Vertical" Margin="10" Spacing="20">
+			<!-- Печи -->
+			<TextBlock Text="Печи" FontSize="16" />
+			<ScrollViewer HorizontalScrollBarVisibility="Auto" Height="100">
+				<ItemsControl ItemsSource="{Binding FurnaceItems}">
+					<ItemsControl.ItemsPanel>
+						<ItemsPanelTemplate>
+							<StackPanel Orientation="Horizontal" />
+						</ItemsPanelTemplate>
+					</ItemsControl.ItemsPanel>
+					<ItemsControl.ItemTemplate>
+						<DataTemplate DataType="vm:FurnaceViewModel">
+							<Grid>
+								<Rectangle 
+										   Fill="Yellow"
+										   Width="80" Height="80"
+										   RenderTransformOrigin="0.5,0.5"
+										   Margin="0,0,10,0"
+										   IsVisible="{Binding IsOperating}"
+										   Stroke="{Binding Status, Converter={StaticResource StatusBrush}}"
+										   StrokeThickness="2" />
+								<Rectangle Classes="furnace"
+										   Width="80" Height="80"
+										   Margin="0,0,10,0"
+										   IsVisible="{Binding IsOperating, Converter={StaticResource InvBool}}"
+										   Stroke="{Binding Status, Converter={StaticResource StatusBrush}}"
+										   StrokeThickness="2" />
+							</Grid>
+						</DataTemplate>
+					</ItemsControl.ItemTemplate>
+				</ItemsControl>
+			</ScrollViewer>
+
+			<!-- Погрузчики -->
+			<TextBlock Text="Погрузчики" FontSize="16" />
+			<ScrollViewer HorizontalScrollBarVisibility="Auto" Height="100">
+				<ItemsControl ItemsSource="{Binding LoaderItems}">
+					<ItemsControl.ItemsPanel>
+						<ItemsPanelTemplate>
+							<StackPanel Orientation="Horizontal" />
+						</ItemsPanelTemplate>
+					</ItemsControl.ItemsPanel>
+					<ItemsControl.ItemTemplate>
+						<DataTemplate DataType="vm:LoaderViewModel">
+							<Grid>
+								<Border Classes="loader" Width="60" Height="60"
+										RenderTransformOrigin="0.5,0.5"
+										Margin="0,0,10,0"
+										IsVisible="{Binding IsLoading}" />
+								<Border Width="60" Height="60"
+										Background="LightGray"
+										Margin="0,0,10,0"
+										IsVisible="{Binding IsLoading, Converter={StaticResource InvBool}}" />
+							</Grid>
+						</DataTemplate>
+					</ItemsControl.ItemTemplate>
+				</ItemsControl>
+			</ScrollViewer>
+
+			<!-- Рабочие -->
+			<TextBlock Text="Рабочие" FontSize="16" />
+			<ScrollViewer HorizontalScrollBarVisibility="Auto" Height="100">
+				<ItemsControl ItemsSource="{Binding WorkerItems}">
+					<ItemsControl.ItemsPanel>
+						<ItemsPanelTemplate>
+							<StackPanel Orientation="Horizontal" />
+						</ItemsPanelTemplate>
+					</ItemsControl.ItemsPanel>
+					<ItemsControl.ItemTemplate>
+						<DataTemplate DataType="vm:WorkerViewModel">
+							<Grid>
+								<Polygon Classes="gear"
+										 RenderTransformOrigin="0.5,0"
+										 Margin="0,0,10,0"
+										 Points="30,0 21.213,21.213 0,30 -21.213,21.213 -30,0 -21.213,-21.213 0,-30 21.213,-21.213"
+										 IsVisible="{Binding IsWorking}">
+									<Polygon.RenderTransform>
+										<RotateTransform />
+									</Polygon.RenderTransform>
+								</Polygon>
+								<Ellipse Width="60" Height="60" Fill="LightGray"
+										 Margin="0,0,10,0"
+										 IsVisible="{Binding IsWorking, Converter={StaticResource InvBool}}" />
+							</Grid>
+						</DataTemplate>
+					</ItemsControl.ItemTemplate>
+				</ItemsControl>
+			</ScrollViewer>
+		</StackPanel>
+	</DockPanel>
+</Window>
